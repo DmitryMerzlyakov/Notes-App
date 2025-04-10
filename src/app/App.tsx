@@ -1,13 +1,13 @@
 import { BrowserRouter } from 'react-router-dom';
 import { AppRoutes } from './router';
-import { NotesProvider } from './providers';
+import { ThemeProvider } from './providers';
 
 export const App = () => {
   return (
     <BrowserRouter>
-      <NotesProvider>
+      <ThemeProvider>
         <AppRoutes />
-      </NotesProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 };

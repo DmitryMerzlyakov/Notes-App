@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react';
+import { useState } from 'react';
 import { TextField } from '@mui/material';
-import { NotesContext } from '../../app/providers';
+import { useNotes } from '../../hooks';
 
-const SearchBox: React.FC = () => {
+export const SearchBox = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const { notes, setFilteredNotes } = useContext(NotesContext);
+  const { notes, setFilteredNotes } = useNotes();
 
   const handleSearch = (term: string) => {
     setSearchTerm(term);
@@ -27,5 +27,3 @@ const SearchBox: React.FC = () => {
     </div>
   );
 };
-
-export default SearchBox;

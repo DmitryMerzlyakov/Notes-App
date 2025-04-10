@@ -1,18 +1,15 @@
-import React from 'react';
 import { ListItemButton, ListItemText } from '@mui/material';
 
-interface ListItemProps {
+interface IListItemProps {
   note: { id: string; title: string };
   isSelected: boolean;
   onClick: () => void;
 }
 
-const ListItem: React.FC<ListItemProps> = ({ note, isSelected, onClick }) => {
+export const ListItem = ({ note, isSelected, onClick }: IListItemProps) => {
   return (
     <ListItemButton selected={isSelected} onClick={onClick}>
       <ListItemText primary={note.title} />
     </ListItemButton>
   );
 };
-
-export default ListItem;

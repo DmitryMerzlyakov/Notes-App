@@ -1,10 +1,10 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import SimpleMDE from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
-import { NotesContext } from '../../app/providers';
+import { useNotes } from '../../hooks';
 
-const Workspace = () => {
-  const { selectedNote, updateNote } = useContext(NotesContext);
+export const Workspace = () => {
+  const { selectedNote, updateNote } = useNotes();
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -14,21 +14,17 @@ const Workspace = () => {
     }, 1000);
 
     return () => clearTimeout(timeoutId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedNote?.content, updateNote, selectedNote?.id]);
-
-  if (!selectedNote) return <div>Выберите заметку</div>;
 
   return (
     <div>
       <SimpleMDE
-        value={selectedNote.content}
+        value={selectedNote?.content as string}
         onChange={(value) => {
-          updateNote(selectedNote.id!, value);
+          updateNote(selectedNote?.id as string, value);
         }}
       />
     </div>
   );
 };
-
-export default Workspace;
