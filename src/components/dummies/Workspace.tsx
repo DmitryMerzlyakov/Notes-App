@@ -6,16 +6,16 @@ import { useNotes } from '../../hooks';
 export const Workspace = () => {
   const { selectedNote, updateNote } = useNotes();
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      if (selectedNote) {
-        updateNote(selectedNote.id!, selectedNote.content);
-      }
-    }, 1000);
+  // useEffect(() => {
+  //   const timeoutId = setTimeout(() => {
+  //     if (selectedNote) {
+  //       updateNote(selectedNote.id!, selectedNote.content);
+  //     }
+  //   }, 1000);
 
-    return () => clearTimeout(timeoutId);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedNote?.content, updateNote, selectedNote?.id]);
+  //   return () => clearTimeout(timeoutId);
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [selectedNote?.content, updateNote, selectedNote?.id]);
 
   return (
     <div>

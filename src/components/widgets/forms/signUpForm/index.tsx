@@ -4,7 +4,11 @@ import { Button, TextField, Box } from '@mui/material';
 import { auth, createUserWithEmailAndPassword } from '../../../../../firebase';
 import { ISignUpData } from '../../../../models';
 
-export const SignUp = () => {
+interface ISignUpProps {
+  isUser: (value: boolean) => void;
+}
+
+export const SignUp = ({isUser}: ISignUpProps) => {
   const { register, handleSubmit, formState: { errors }, watch } = useForm<ISignUpData>();
   const navigate = useNavigate();
 
@@ -56,8 +60,11 @@ export const SignUp = () => {
           error={!!errors.confirmPassword}
           helperText={errors.confirmPassword?.message}
         />
-        <Button type="submit" variant="contained" fullWidth>
+        <Button type="submit" variant="contained" fullWidth sx={{marginBottom: 1}}>
           Зарегистрироваться
+        </Button>
+        <Button variant="contained" fullWidth onClick={() => isUser(false)}>
+          У меня есть аккаунт
         </Button>
       </form>
     </Box>

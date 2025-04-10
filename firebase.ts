@@ -38,4 +38,4 @@ export const fetchNotes = async (userId: string) => {
   return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as INote[];
 };
 
-export { signInWithEmailAndPassword, createUserWithEmailAndPassword };
+export { signInWithEmailAndPassword, createUserWithEmailAndPassword, app };

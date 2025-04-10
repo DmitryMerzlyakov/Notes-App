@@ -5,7 +5,11 @@ import { auth, signInWithEmailAndPassword } from '../../../../../firebase';
 import { FirebaseError } from 'firebase/app';
 import { ISignInData } from '../../../../models';
 
-export const SignIn = () => {
+interface ISignInProps {
+  isUser: (value: boolean) => void;
+}
+
+export const SignIn = ({isUser}: ISignInProps) => {
   const { register, handleSubmit, formState: { errors } } = useForm<ISignInData>();
   const navigate = useNavigate();
 
@@ -47,8 +51,12 @@ export const SignIn = () => {
         error={!!errors.password}
         helperText={errors.password?.message}
       />
-      <Button type="submit" variant="contained" fullWidth>
+      <Button type="submit" variant="contained" fullWidth sx={{marginBottom: 1}}>
         Войти
+      </Button>
+      <></>
+      <Button variant="contained" fullWidth onClick={() => isUser(true)}>
+        Зарегистрироваться
       </Button>
     </form>
   );

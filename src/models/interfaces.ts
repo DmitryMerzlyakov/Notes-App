@@ -20,3 +20,7 @@ export interface ISignUpData {
   password: string;
   confirmPassword: string;
 };
+
+export interface INotesParams {
+  userId: string;
+}

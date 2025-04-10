@@ -22,6 +22,7 @@ export const NoteEditor = ({ onClose }: INoteEditorProps) => {
       await updateNote(selectedNote.id!, content);
     } else {
       const newNote = {
+        id: crypto.randomUUID(),
         title,
         content,
         userId: localStorage.getItem('userId') || '',

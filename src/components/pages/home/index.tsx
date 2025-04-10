@@ -1,11 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { useNotes } from '../../../hooks';
 import { SearchBox, Sidebar, NoteEditor } from '../../dummies';
 
 export const HomePage = () => {
-  const { setSelectedNoteId } = useNotes();
+  const { setSelectedNoteId, fetchUserNotes } = useNotes();
   const [isEditing, setIsEditing] = useState(false);
+  
+
+  useEffect(() => {
+    fetchUserNotes();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleCreateNote = () => {
     setSelectedNoteId(null); 
