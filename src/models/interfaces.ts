@@ -1,5 +1,6 @@
 export interface INote {
   id?: string;
+  databaseId?: string;
   title: string;
   content: string;
   userId: string;

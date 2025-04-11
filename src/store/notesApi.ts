@@ -38,6 +38,13 @@ export const notesApi = createApi({
         body: { id },
       }),
       invalidatesTags: ['Note']
+    }),
+    getNoteById: builder.query<INote, string>({
+      query: (noteId) => ({ 
+        method: 'GET', 
+        url: 'notes',
+        body: { noteId }
+      }),
     })
   })
 });
@@ -47,4 +54,5 @@ export const {
   useAddNoteMutation,
   useUpdateNoteMutation,
   useDeleteNoteMutation,
+  useGetNoteByIdQuery
 } = notesApi;

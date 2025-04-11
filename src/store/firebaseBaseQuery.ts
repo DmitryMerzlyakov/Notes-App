@@ -15,6 +15,7 @@ const db = getFirestore(app);
 
 type QueryConfig =
   | { method: 'GET'; url: string; body: { userId: string } }
+  | { method: 'GET'; url: string; body: { noteId: string }}
   | { method: 'POST'; url: string; body: Partial<INote> }
   | { method: 'PATCH'; url: string; body: Partial<INote> & { id: string } }
   | { method: 'DELETE'; url: string; body: { id: string } };
@@ -24,10 +25,19 @@ export const firebaseBaseQuery = () =>
     try {
         switch (method) {
           case 'GET': {
-            const q = query(collection(db, url), where('userId', '==', (body as { userId: string }).userId));
-            const querySnapshot = await getDocs(q);
-            const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as INote[];
-            return { data };
+            if (body && 'noteId' in body) {
+              const q = query(collection(db, url), where('id', '==', body.noteId));
+              const querySnapshot = await getDocs(q);
+              const notes = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as INote[];
+              return { data: notes[0] };
+            } else if (body && 'userId' in body) {
+              const q = query(collection(db, url), where('userId', '==', body.userId));
+              const querySnapshot = await getDocs(q);
+              const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as INote[];
+              return { data };
+            } else {
+              throw new Error('Invalid GET request configuration');
+            }
           }
           case 'POST': {
             const docRef = await addDoc(collection(db, url), body);
@@ -39,7 +49,10 @@ export const firebaseBaseQuery = () =>
             return { data: { id, ...patchData } };
           }
           case 'DELETE': {
-            await deleteDoc(doc(db, url, (body as { id: string }).id));
+            const q = query(collection(db, url), where('id', '==', (body as { id: string }).id));
+            const querySnapshot = await getDocs(q);
+            const docId = querySnapshot.docs[0].id;
+            await deleteDoc(doc(db, url, docId));
             return { data: null };
           }
           default:

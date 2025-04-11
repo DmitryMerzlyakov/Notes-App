@@ -1,19 +1,15 @@
 import { useState } from 'react';
 import { TextField } from '@mui/material';
-import { useNotes } from '../../hooks';
+import { useSelectedNote } from '../../../hooks';
 
 export const SearchBox = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const { notes, setFilteredNotes } = useNotes();
+
+  const { setFilteredNotes } = useSelectedNote();
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const handleSearch = (term: string) => {
     setSearchTerm(term);
-    const filtered = notes.filter(
-      (note) =>
-        note.title.toLowerCase().includes(term.toLowerCase()) ||
-        note.content.toLowerCase().includes(term.toLowerCase())
-    );
-    setFilteredNotes(filtered);
+    setFilteredNotes(term);
   };
 
   return (
