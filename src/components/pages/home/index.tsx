@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { Box, Typography, Button } from '@mui/material';
-import { NoteEditor, Sidebar, Workspace } from '../../dummies';
+import { NoteEditor, Sidebar } from '../../dummies';
+import { useSelectedNote } from '../../../hooks';
+import { NoteCard } from '../../dummies/noteCard';
 
 export const HomePage = () => {
+  const { selectedNoteId } = useSelectedNote();
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  
+
   return (
     <Box sx={{ display: 'flex', height: '100vh' }}>
       <Sidebar />
@@ -16,8 +19,10 @@ export const HomePage = () => {
           </Button>
         </Box>
         {!isEditing ?
-          <Workspace setIsEditing={setIsEditing}/>
-            :
+          <>
+            {selectedNoteId && <NoteCard onEdit={setIsEditing} />}
+          </>
+          :
           <NoteEditor onClose={setIsEditing} />
         }
       </Box>

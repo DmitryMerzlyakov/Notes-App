@@ -1,39 +1,51 @@
-import React, { createContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from "react";
+import { ThemeProvider as MuiThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
 interface IThemeProviderProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
-type Theme = 'light' | 'dark';
+type PaletteMode = 'light' | 'dark';
 
-interface ThemeContextType {
-  mode: Theme;
-  toggleMode: () => void;
-}
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const ThemeContext = createContext<ThemeContextType>({
-  mode: 'light',
-  toggleMode: () => {},
+const ThemeContext = createContext({
+  mode: "light",
+  toggleThemeMode: () => { }
 });
 
+// eslint-disable-next-line react-refresh/only-export-components
+export const useThemeMode = () => {
+  return useContext(ThemeContext);
+};
+
 export const ThemeProvider = ({ children }: IThemeProviderProps) => {
-  const [mode, setMode] = useState<Theme>(() => {
-    const savedMode = localStorage.getItem('theme') as Theme | null;
-    return savedMode || 'light';
-  });
+  const [mode, setMode] = useState<PaletteMode>("light");
 
   useEffect(() => {
-    localStorage.setItem('theme', mode);
-  }, [mode]);
+    const savedMode = localStorage.getItem("themeMode");
+    if (savedMode) {
+      setMode(savedMode as PaletteMode);
+    }
+  }, []);
 
-  const toggleMode = () => {
-    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+  const toggleThemeMode = () => {
+    const newMode = mode === "light" ? "dark" : "light";
+    setMode(newMode);
+    localStorage.setItem("themeMode", newMode);
   };
 
+  const theme = createTheme({
+    palette: {
+      mode
+    },
+  });
+
   return (
-    <ThemeContext.Provider value={{ mode, toggleMode }}>
-      {children}
+    <ThemeContext.Provider value={{ mode, toggleThemeMode }}>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
+      </MuiThemeProvider>
     </ThemeContext.Provider>
   );
 };

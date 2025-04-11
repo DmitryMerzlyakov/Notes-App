@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { Button, TextField, Box } from '@mui/material';
 import { auth, createUserWithEmailAndPassword } from '../../../../../firebase';
 import { ISignUpData } from '../../../../models';
@@ -8,16 +7,15 @@ interface ISignUpProps {
   isUser: (value: boolean) => void;
 }
 
-export const SignUp = ({isUser}: ISignUpProps) => {
+export const SignUp = ({ isUser }: ISignUpProps) => {
   const { register, handleSubmit, formState: { errors }, watch } = useForm<ISignUpData>();
-  const navigate = useNavigate();
 
   const password = watch('password');
 
   const onSubmit = async (data: ISignUpData) => {
     try {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
-      navigate('/login');
+      isUser(false)
     } catch (error) {
       if (error instanceof Error) {
         alert(`Ошибка регистрации: ${error.message}`);
@@ -60,7 +58,7 @@ export const SignUp = ({isUser}: ISignUpProps) => {
           error={!!errors.confirmPassword}
           helperText={errors.confirmPassword?.message}
         />
-        <Button type="submit" variant="contained" fullWidth sx={{marginBottom: 1}}>
+        <Button type="submit" variant="contained" fullWidth sx={{ marginBottom: 1 }}>
           Зарегистрироваться
         </Button>
         <Button variant="contained" fullWidth onClick={() => isUser(false)}>

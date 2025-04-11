@@ -13,7 +13,7 @@ export const notesApi = createApi({
         url: 'notes',
         body: params,
       }),
-      providesTags: ['Note']
+      providesTags: ['Note'],
     }),
     addNote: builder.mutation<INote, Partial<INote>>({
       query: (note) => ({
@@ -21,7 +21,7 @@ export const notesApi = createApi({
         url: 'notes',
         body: note,
       }),
-      invalidatesTags: ['Note']
+      invalidatesTags: ['Note'],
     }),
     updateNote: builder.mutation<INote, Partial<INote> & { id: string }>({
       query: (note) => ({
@@ -29,7 +29,7 @@ export const notesApi = createApi({
         url: 'notes',
         body: note,
       }),
-      invalidatesTags: ['Note']
+      invalidatesTags: ['Note'],
     }),
     deleteNote: builder.mutation<void, string>({
       query: (id) => ({
@@ -37,16 +37,17 @@ export const notesApi = createApi({
         url: 'notes',
         body: { id },
       }),
-      invalidatesTags: ['Note']
+      invalidatesTags: ['Note'],
     }),
     getNoteById: builder.query<INote, string>({
-      query: (noteId) => ({ 
-        method: 'GET', 
+      query: (noteId) => ({
+        method: 'GET',
         url: 'notes',
-        body: { noteId }
+        body: { noteId },
       }),
-    })
-  })
+      providesTags: ['Note'],
+    }),
+  }),
 });
 
 export const {
@@ -54,5 +55,5 @@ export const {
   useAddNoteMutation,
   useUpdateNoteMutation,
   useDeleteNoteMutation,
-  useGetNoteByIdQuery
+  useGetNoteByIdQuery,
 } = notesApi;

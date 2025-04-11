@@ -9,7 +9,7 @@ interface ISignInProps {
   isUser: (value: boolean) => void;
 }
 
-export const SignIn = ({isUser}: ISignInProps) => {
+export const SignIn = ({ isUser }: ISignInProps) => {
   const { register, handleSubmit, formState: { errors } } = useForm<ISignInData>();
   const navigate = useNavigate();
 
@@ -19,14 +19,12 @@ export const SignIn = ({isUser}: ISignInProps) => {
       const user = userCredential.user;
       if (user) {
         localStorage.setItem('userId', user.uid);
-        navigate('/'); 
+        navigate('/');
       }
     } catch (error) {
       if (error instanceof FirebaseError) {
-        console.error('Firebase Error:', error.code, error.message);
         alert(`Ошибка входа: ${error.message}`);
       } else {
-        console.error('Неизвестная ошибка:', error);
         alert('Произошла неизвестная ошибка');
       }
     }
@@ -51,7 +49,7 @@ export const SignIn = ({isUser}: ISignInProps) => {
         error={!!errors.password}
         helperText={errors.password?.message}
       />
-      <Button type="submit" variant="contained" fullWidth sx={{marginBottom: 1}}>
+      <Button type="submit" variant="contained" fullWidth sx={{ marginBottom: 1 }}>
         Войти
       </Button>
       <></>

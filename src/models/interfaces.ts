@@ -1,6 +1,5 @@
 export interface INote {
   id?: string;
-  databaseId?: string;
   title: string;
   content: string;
   userId: string;
@@ -14,13 +13,13 @@ export interface IThemeContextType {
 export interface ISignInData {
   email: string;
   password: string;
-};
+}
 
 export interface ISignUpData {
   email: string;
   password: string;
   confirmPassword: string;
-};
+}
 
 export interface INotesParams {
   userId: string;
