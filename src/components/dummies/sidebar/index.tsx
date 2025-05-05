@@ -11,7 +11,7 @@ export const Sidebar = () => {
   const theme = useMuiTheme();
   const { filteredNotes } = useSelectedNote();
   const { selectedNoteId, setSelectedNoteId } = useSelectedNote();
-  const { data: notes = [], isLoading } = useGetNotesQuery({userId: localStorage.getItem('userId') || ''});  
+  const { data: notes = [], isLoading } = useGetNotesQuery({userId: sessionStorage.getItem('userId') || ''});  
 
   const handleFilteredNotes = () => {
     const filtered = notes.filter(

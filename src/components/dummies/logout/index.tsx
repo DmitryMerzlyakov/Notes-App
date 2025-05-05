@@ -9,7 +9,7 @@ export const LogoutButton: React.FC = () => {
 
   const handleLogout = async () => {
     await auth.signOut();
-    localStorage.removeItem('userId');
+    sessionStorage.removeItem('userId');
     navigate('/login');
   };
 

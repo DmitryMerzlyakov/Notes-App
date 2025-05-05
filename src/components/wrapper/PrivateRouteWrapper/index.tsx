@@ -5,7 +5,7 @@ interface IPrivateRouteProps {
 }
 
 export const PrivateRoute = ({ children }: IPrivateRouteProps) => {
-  const user = localStorage.getItem('userId');
+  const user = sessionStorage.getItem('userId');
 
   if (!user) {
     return <Navigate to="/login" replace />;

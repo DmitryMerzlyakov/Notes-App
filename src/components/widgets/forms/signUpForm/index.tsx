@@ -1,13 +1,16 @@
 import { useForm } from 'react-hook-form';
-import { Button, TextField, Box } from '@mui/material';
+import { Button, TextField, Box, Typography } from '@mui/material';
 import { auth, createUserWithEmailAndPassword } from '../../../../../firebase';
 import { ISignUpData } from '../../../../models';
+import { useState } from 'react';
+import { FirebaseError } from 'firebase/app';
 
 interface ISignUpProps {
   isUser: (value: boolean) => void;
 }
 
 export const SignUp = ({ isUser }: ISignUpProps) => {
+  const [error, setError] = useState<string>('')
   const { register, handleSubmit, formState: { errors }, watch } = useForm<ISignUpData>();
 
   const password = watch('password');
@@ -17,14 +20,33 @@ export const SignUp = ({ isUser }: ISignUpProps) => {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
       isUser(false)
     } catch (error) {
-      if (error instanceof Error) {
-        alert(`Ошибка регистрации: ${error.message}`);
+      if (error instanceof FirebaseError) {
+        switch (error.code) {
+          case 'passwords-mismatch':
+            setError('Пароли не совпадают!')
+            break
+          case 'auth/too-many-requests':
+            setError('Слишком много запросов!')
+            break
+          case 'auth/invalid-email':
+            setError('Некорректный e-mail!')
+            break
+          case "auth/weak-password":
+            setError('Cлишком легкий пароль!')
+            break
+          case 'auth/missing-password':
+            setError('Введите пароль!')
+            break
+          default:
+            break
+        }
       }
     }
   };
 
   return (
     <Box sx={{ maxWidth: 400, margin: 'auto', mt: 10 }}>
+      {error && <Typography>{error}</Typography>}
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
           label="Email"

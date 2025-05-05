@@ -25,7 +25,7 @@ export const NoteEditor = ({ onClose }: INoteEditorProps) => {
         id: crypto.randomUUID(),
         title,
         content,
-        userId: localStorage.getItem('userId') || '',
+        userId: sessionStorage.getItem('userId') || '',
       }
       await addNote(newNote).finally(() => onClose(false))
     }
