@@ -22,7 +22,6 @@ export const NoteEditor = ({ onClose }: INoteEditorProps) => {
     if (!title.trim() || !content.trim()) { serIsError(true) }
     else {
       const newNote = {
-        id: crypto.randomUUID(),
         title,
         content,
         userId: sessionStorage.getItem('userId') || '',
@@ -30,7 +29,6 @@ export const NoteEditor = ({ onClose }: INoteEditorProps) => {
       await addNote(newNote).finally(() => onClose(false))
     }
   };
-
 
   const handleUpdateNote = async () => {
     await updateNote({
