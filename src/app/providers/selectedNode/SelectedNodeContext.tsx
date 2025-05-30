@@ -3,7 +3,7 @@ import { ISelectedNoteContextType, SelectedNoteContext } from '../../../hooks/us
 import { useGetNoteByIdQuery } from '../../../store/notesApi';
 
 interface ISelectedNoteProviderProps {
-    children: React.ReactNode
+  children: React.ReactNode
 }
 
 export const SelectedNoteProvider = ({ children }: ISelectedNoteProviderProps) => {

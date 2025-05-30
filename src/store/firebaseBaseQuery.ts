@@ -1,4 +1,4 @@
-import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, query, where, getDocs } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, query, where, getDocs, getDoc } from 'firebase/firestore';
 import { app } from '../../firebase';
 import { INote } from '../models';
 const db = getFirestore(app);
@@ -17,10 +17,12 @@ export const firebaseBaseQuery =
       switch (method) {
         case 'GET': {
           if (body && 'noteId' in body) {
-            const q = query(collection(db, url), where('id', '==', body.noteId));
-            const querySnapshot = await getDocs(q);
-            const notes = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as INote[];
-            return { data: notes[0] };
+            const docRef = doc(db, url, body.noteId);
+            const docSnap = await getDoc(docRef);
+            if (!docSnap.exists()) {
+              throw new Error('Note not found');
+            }
+            return { data: { id: docSnap.id, ...docSnap.data() } as INote };
           } else if (body && 'userId' in body) {
             const q = query(collection(db, url), where('userId', '==', body.userId));
             const querySnapshot = await getDocs(q);
@@ -45,10 +47,9 @@ export const firebaseBaseQuery =
           return { data: { id, ...patchData } };
         }
         case 'DELETE': {
-          const q = query(collection(db, url), where('id', '==', (body as { id: string }).id));
-          const querySnapshot = await getDocs(q);
-          const docId = querySnapshot.docs[0].id;
-          await deleteDoc(doc(db, url, docId));
+          const { id } = body as { id: string };
+          const noteDocRef = doc(db, url, id);
+          await deleteDoc(noteDocRef);
           return { data: null };
         }
         default:

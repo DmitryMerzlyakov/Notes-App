@@ -13,6 +13,8 @@ export const Sidebar = () => {
   const { selectedNoteId, setSelectedNoteId } = useSelectedNote();
   const { data: notes = [], isLoading } = useGetNotesQuery({userId: sessionStorage.getItem('userId') || ''});  
 
+  console.log(notes);
+  
   const handleFilteredNotes = () => {
     const filtered = notes.filter(
       (note) => note.title.toLowerCase().includes(filteredNotes.toLowerCase())
