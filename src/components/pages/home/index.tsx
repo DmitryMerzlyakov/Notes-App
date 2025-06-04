@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Box, Typography, Button } from '@mui/material';
-import { NoteEditor, Sidebar } from '../../dummies';
-import { NoteCard } from '../../dummies/noteCard';
 import { useSelectedNote } from '../../../hooks';
+import { NoteCard, NoteEditor, Sidebar } from '../../dummies';
 
 export const HomePage = () => {
   const { selectedNoteId } = useSelectedNote();
