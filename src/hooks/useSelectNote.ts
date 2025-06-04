@@ -18,7 +18,7 @@ export const SelectedNoteContext = React.createContext<ISelectedNoteContextType>
   setFilteredNotes: () => {},
 });
 
-export const useSelectedNote = () => {
+export const useSelectedNote = ():ISelectedNoteContextType => {
   const context = useContext(SelectedNoteContext);
   if (!context) {
     throw new Error('useSelectedNote must be used within a SelectedNoteProvider');

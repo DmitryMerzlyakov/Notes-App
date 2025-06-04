@@ -1,6 +1,6 @@
 import { Box, Typography, Button, Modal } from '@mui/material';
 import { useState } from 'react';
-import { useDeleteNoteMutation } from '../../../store/notesApi';
+import { useDeleteNoteMutation, useGetNoteByIdQuery } from '../../../store/notesApi';
 import { useSelectedNote } from '../../../hooks/useSelectNote';
 
 interface INoteCardProps {
@@ -10,8 +10,9 @@ interface INoteCardProps {
 export const NoteCard = ({ onEdit }: INoteCardProps) => {
 
   const [deleteNote] = useDeleteNoteMutation();
-  const { note, setSelectedNoteId } = useSelectedNote();
+  const { selectedNoteId, setSelectedNoteId } = useSelectedNote();
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const {data: currentNote, isLoading} = useGetNoteByIdQuery(selectedNoteId || '');
 
   const handleDeleteNote = async (id: string) => {
     await deleteNote(id).finally(() => (setIsVisible(false), setSelectedNoteId(null)));
@@ -19,7 +20,7 @@ export const NoteCard = ({ onEdit }: INoteCardProps) => {
 
   return (
     <>
-      <Box
+      {!isLoading && <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -31,7 +32,7 @@ export const NoteCard = ({ onEdit }: INoteCardProps) => {
         }}
       >
         <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
-          {note?.title}
+          {currentNote?.title}
         </Typography>
         <Typography
           variant="body1"
@@ -41,7 +42,7 @@ export const NoteCard = ({ onEdit }: INoteCardProps) => {
             wordWrap: 'break-word',
           }}
         >
-          {note?.content}
+          {currentNote?.content}
         </Typography>
         <Box
           sx={{
@@ -60,7 +61,7 @@ export const NoteCard = ({ onEdit }: INoteCardProps) => {
             Удалить
           </Button>
         </Box>
-      </Box>
+      </Box>}
       <Modal open={isVisible} onClose={() => setIsVisible(false)}>
         <Box
           sx={{
@@ -82,7 +83,7 @@ export const NoteCard = ({ onEdit }: INoteCardProps) => {
             <Button variant="outlined" onClick={() => setIsVisible(false)}>
               Отмена
             </Button>
-            <Button variant="contained" color="error" onClick={() => handleDeleteNote(note!.id as string)}>
+            <Button variant="contained" color="error" onClick={() => handleDeleteNote(currentNote!.id as string)}>
               Удалить
             </Button>
           </Box>
