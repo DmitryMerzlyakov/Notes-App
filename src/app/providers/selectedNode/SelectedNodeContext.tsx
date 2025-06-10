@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ISelectedNoteContextType, SelectedNoteContext } from '../../../hooks/useSelectNote';
-import { useGetNoteByIdQuery } from '../../../store/notesApi';
+import { ISelectedNoteContextType, SelectedNoteContext } from '@/hooks';
+import { useGetNoteByIdQuery } from '@/store/notesApi';
 
 interface ISelectedNoteProviderProps {
   children: React.ReactNode

@@ -1,9 +1,7 @@
 import {  Box, List, ListItemButton, ListItemText } from '@mui/material';
-import { SearchBox } from '../searchBox';
-import { useGetNotesQuery } from '../../../store/notesApi';
-import { useSelectedNote } from '../../../hooks/useSelectNote';
-import { ThemeToggle } from '../themeToggle';
-import { LogoutButton } from '../logout';
+import { useGetNotesQuery } from '@/store/notesApi';
+import { useSelectedNote } from '@/hooks';
+import { LogoutButton, SearchBox, ThemeToggle } from '@/components/dummies';
 import { useTheme as useMuiTheme } from '@mui/material/styles';
 
 export const Sidebar = () => {

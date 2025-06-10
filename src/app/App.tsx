@@ -1,8 +1,8 @@
 import { BrowserRouter } from 'react-router-dom';
-import { AppRoutes } from './router';
+import { AppRoutes } from '@/app';
 import { SelectedNoteProvider, ThemeProvider } from './providers';
 import { Provider } from 'react-redux';
-import { store } from '../store/store';
+import { store } from '@/store/store';
 
 export const App = () => {
   return (

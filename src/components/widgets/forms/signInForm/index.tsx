@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, TextField, Typography } from '@mui/material';
 import { auth, signInWithEmailAndPassword } from '../../../../../firebase';
 import { FirebaseError } from 'firebase/app';
-import { ISignInData } from '../../../../models';
+import { ISignInData } from '@/models';
 import { useState } from 'react';
 
 interface ISignInProps {

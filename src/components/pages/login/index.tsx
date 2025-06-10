@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
-import { SignIn, SignUp } from '../../widgets/forms';
+import { SignIn, SignUp } from '@/components/widgets/forms';
 
 export const LoginPage: React.FC = () => {
 
