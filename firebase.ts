@@ -1,5 +1,5 @@
+import { INote } from '@/models';
 import { initializeApp } from 'firebase/app';
-import { INote } from './src/models';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, query, where, getDocs } from 'firebase/firestore';
@@ -14,8 +14,8 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 export const saveNote = async (note: INote) => {
   const docRef = await addDoc(collection(db, 'notes'), note);
@@ -38,4 +38,4 @@ export const fetchNotes = async (userId: string) => {
   return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as INote[];
 };
 
-export { signInWithEmailAndPassword, createUserWithEmailAndPassword, app };
+export { signInWithEmailAndPassword, createUserWithEmailAndPassword, app, auth, db };

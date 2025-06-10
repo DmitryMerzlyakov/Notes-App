@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { TextField } from '@mui/material';
-import { useSelectedNote } from '../../../hooks';
+import { useSelectedNote } from '@/hooks';
 
 export const SearchBox = () => {
 

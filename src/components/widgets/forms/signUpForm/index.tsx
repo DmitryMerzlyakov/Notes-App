@@ -1,9 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { Button, TextField, Box, Typography } from '@mui/material';
-import { auth, createUserWithEmailAndPassword } from '../../../../../firebase';
-import { ISignUpData } from '../../../../models';
+import { ISignUpData } from '@/models';
 import { useState } from 'react';
 import { FirebaseError } from 'firebase/app';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../../../../firebase';
 
 interface ISignUpProps {
   isUser: (value: boolean) => void;

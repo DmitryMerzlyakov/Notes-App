@@ -1,7 +1,7 @@
 import { Box, Typography, Button, Modal } from '@mui/material';
 import { useState } from 'react';
-import { useDeleteNoteMutation, useGetNoteByIdQuery } from '../../../store/notesApi';
-import { useSelectedNote } from '../../../hooks/useSelectNote';
+import { useDeleteNoteMutation, useGetNoteByIdQuery } from '@/store/notesApi';
+import { useSelectedNote } from '@/hooks';
 
 interface INoteCardProps {
   onEdit: (value: boolean) => void;

@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Button, TextField, Box, Typography } from '@mui/material';
 import SimpleMDE from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
-import { useAddNoteMutation, useUpdateNoteMutation } from '../../../store/notesApi';
-import { useSelectedNote } from '../../../hooks/useSelectNote';
+import { useAddNoteMutation, useUpdateNoteMutation } from '@/store/notesApi';
+import { useSelectedNote } from '@/hooks';
 
 interface INoteEditorProps {
   onClose: (value: boolean) => void;

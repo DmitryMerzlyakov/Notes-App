@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { INote, INotesParams } from '../models';
-import { firebaseBaseQuery } from './firebaseBaseQuery';
+import { INote, INotesParams } from '@/models';
+import { firebaseBaseQuery } from '@/store/firebaseBaseQuery';
 
 export const notesApi = createApi({
   reducerPath: 'notesApi',

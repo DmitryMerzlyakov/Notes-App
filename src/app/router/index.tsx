@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { HomePage, LoginPage } from '../../components/pages';
-import { PrivateRoute } from '../../components/wrapper';
+import { HomePage, LoginPage } from '@/components/pages';
+import { PrivateRoute } from '@/components/wrapper';
 
 export const AppRoutes = () => {
   return (

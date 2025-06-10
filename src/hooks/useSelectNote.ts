@@ -1,6 +1,6 @@
 import React from 'react';
 import { useContext } from 'react';
-import { INote } from '../models';
+import { INote } from '@/models';
 
 export interface ISelectedNoteContextType {
   filteredNotes: string;
