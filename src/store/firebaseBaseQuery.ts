@@ -1,6 +1,6 @@
 import { getFirestore, collection, addDoc, doc, updateDoc, deleteDoc, query, where, getDocs, getDoc } from 'firebase/firestore';
 import { INote } from '@/models';
-import { app } from '../firebase';
+import { app } from '@/firebase';
 const db = getFirestore(app);
 
 type QueryConfig =
