@@ -3,8 +3,7 @@ import { Button, TextField, Box, Typography } from '@mui/material';
 import { ISignUpData } from '@/models';
 import { useState } from 'react';
 import { FirebaseError } from 'firebase/app';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../../../../firebase';
+import { createUserWithEmailAndPassword, auth } from '@/firebase';
 
 interface ISignUpProps {
   isUser: (value: boolean) => void;

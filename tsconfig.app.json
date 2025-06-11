@@ -24,8 +24,7 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@/firebase": ["./firebase"]
+      "@/*": ["src/*"]
     }
   },
   "include": ["src"]

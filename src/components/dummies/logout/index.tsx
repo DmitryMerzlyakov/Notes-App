@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
-import { auth } from '../../../../firebase';
+import { auth } from '@/firebase';
 
 export const LogoutButton: React.FC = () => {
   const navigate = useNavigate();
